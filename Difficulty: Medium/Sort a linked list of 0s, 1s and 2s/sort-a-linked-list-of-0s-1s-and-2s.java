@@ -12,35 +12,38 @@ class Node {
 
 class Solution {
     public Node segregate(Node head) {
-        // code here
-        int zeros = 0;
-        int ones = 0;
-        int twos= 0;
+        Node zeroHead = new Node(-1);
+        Node onesHead = new Node(-1);
+        Node twosHead = new Node(-1);
+        
+        Node zeroTail = zeroHead;
+        Node onesTail = onesHead;
+        Node twosTail = twosHead;
         
         Node temp = head;
+        
         while(temp != null){
-            if(temp.data == 0)
-                zeros++;
-            else if(temp.data == 1)
-                ones++;
-            else
-                twos++;
+            if(temp.data == 0){
+                zeroTail.next = temp;
+                zeroTail = zeroTail.next;
+            } 
+            else if(temp.data == 1){
+                onesTail.next = temp;
+                onesTail = onesTail.next;
+            } 
+            else{
+                twosTail.next = temp;
+                twosTail = twosTail.next;
+            } 
             temp = temp.next;
         }
         
-        temp = head;
-        while(zeros-- > 0){
-            temp.data = 0;
-            temp = temp.next;
-        }
-        while(ones-- > 0){
-            temp.data = 1;
-            temp = temp.next;
-        }
-        while(twos-- > 0){
-            temp.data = 2;
-            temp = temp.next;
-        }
+        zeroTail.next = (onesHead.next != null) ? onesHead.next : twosHead.next;
+        onesTail.next = (twosHead.next != null) ? twosHead.next : null;
+        twosTail.next = null;
+        
+        head = zeroHead.next;
         return head;
+        
     }
 }
