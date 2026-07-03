@@ -1,19 +1,18 @@
-// User function Template for Java
 class Solution {
     public int findCeil(int[] arr, int x) {
         // code here
-        int low = 0, high = arr.length-1;
+        int left = 0, right = arr.length-1;
         int ans = -1;
         
-        while(low <= high){
-            int mid = (high + low) / 2;
+        while(left <= right){
+            int mid = left + (right - left)/2;
             
             if(arr[mid] >= x){
                 ans = mid;
-                high = mid - 1;
+                right = mid-1;
             }
             else
-                low = mid + 1;
+                left = mid +1;
         }
         return ans;
     }
